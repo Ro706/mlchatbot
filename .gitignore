@@ -1,0 +1,73 @@
+# Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Python / Backend
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environment Variables (CRITICAL)
+.env
+.env.development
+.env.production
+backend/.env
+
+# Databases
+*.db
+*.sqlite3
+backend/complaints.db
+
+# Machine Learning / Large Files
+# backend/bert_complaint_model/
+chatbot/bert_complaint_model/
+chatbot/results/
+chatbot/logs/
+*.csv
+*.pth
+*.pt
+*.bin
+*.model
+
+# Editor directories and files
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+Thumbs.db
+db.lock
