@@ -1,20 +1,43 @@
-# Complaint Compass
+# Complaint Compass 🧭
 
-Complaint Compass is a banking complaint analysis and management platform featuring an AI-powered assistant, automated root-cause analysis, and an incident command center for handling and routing customer complaints.
+Complaint Compass is an advanced banking complaint analysis and management platform. It leverages state-of-the-art Natural Language Processing (NLP) to automate complaint categorization, sentiment analysis, and root-cause identification, providing an "Incident Command Center" for banking operations.
 
-## Architecture
+## 🏗️ Architecture
 
-This project is structured as a full-stack application:
-- **Frontend**: React + TypeScript + Vite, using Tailwind CSS and shadcn/ui.
-- **Backend**: Python + Flask + PostgreSQL, featuring SQLAlchemy for ORM and Alembic for migrations.
-- **AI Integration**: Powered directly by Google Gemini API (`gemini-2.5-flash` and `gemini-2.5-flash-lite`).
+```mermaid
+graph TD
+    User([User]) --> Frontend[React Frontend]
+    Frontend <--> API[Flask Backend]
+    API <--> DB[(PostgreSQL)]
+    
+    subgraph AI/ML Layer
+        API --> BERT[Local BERT Model]
+        API <--> Groq[Groq LLaMA API]
+    end
+    
+    BERT -.-> |Predict Category| API
+    Groq -.-> |Sentiment, Priority, Root Cause, Response| API
+```
 
-## Getting Started
+## ✨ Key Features
 
-### 1. Backend Setup
+- **AI-Powered Categorization**: Local BERT model classifies complaints into banking categories (Loans, Credit Cards, etc.).
+- **Intelligent Analysis**: Sentiment analysis, frustration scoring, and priority ranking powered by LLaMA (via Groq).
+- **Incident Commander**: Real-time clustering of related complaints to identify systemic issues and suggest resolutions.
+- **AI Assistant**: A specialized banking support chatbot for resolving customer queries.
+- **Root Cause Analysis**: Automated identification of underlying technical or process failures.
+- **Interactive Dashboard**: Visual insights into complaint trends, geographical distribution, and resolution status.
 
-Navigate to the `backend` directory and install the requirements:
+## 🚀 Getting Started
 
+### 1. Prerequisites
+- Node.js (v18+)
+- Python (v3.10+)
+- PostgreSQL
+
+### 2. Backend Setup
+
+Navigate to the `backend` directory:
 ```sh
 cd backend
 python -m venv venv
@@ -22,40 +45,57 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Create a `.env` file in the `backend` directory:
+#### 📦 Download the ML Model
+The system requires a pre-trained BERT model for classification. Download it and place it in the `backend/bert_complaint_model` directory.
 
+- **Option 1 (Hugging Face):** [Ro706/complaint-bert-model](https://huggingface.co/Ro706/complaint-bert-model)
+- **Option 2 (GitHub):** [ML Chatbot Releases](https://github.com/Ro706/mlchatbot/releases/tag/Model)
+
+Ensure the structure looks like this:
+`backend/bert_complaint_model/config.json`, `pytorch_model.bin`, etc.
+
+#### Configure Environment
+Create a `.env` file in the `backend` directory:
 ```env
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/complaint_compass
 JWT_SECRET_KEY=your_secret_key_here
-GEMINI_API_KEY=your_google_gemini_api_key
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
-Run the database setup and start the Flask server:
-
+#### Initialize Database
 ```sh
 flask db upgrade
 python seed.py
 python app.py
 ```
 
-### 2. Frontend Setup
+### 3. Frontend Setup
 
-In the root project directory, install the Node.js dependencies:
-
+In the root project directory:
 ```sh
 npm install
 ```
 
-Create a `.env` file in the root project directory:
-
+Create a `.env` file in the root directory:
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-Start the Vite development server:
-
+Start the development server:
 ```sh
 npm run dev
 ```
 
 The application will be available at `http://localhost:8080`.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React, TypeScript, Vite, Tailwind CSS, shadcn/ui.
+- **Backend**: Python, Flask, SQLAlchemy, PostgreSQL.
+- **AI/ML**:
+  - **BERT**: Fine-tuned for banking complaint classification (Local).
+  - **LLaMA 3.1**: Used via Groq for high-speed reasoning and response generation.
+  - **Transformers & PyTorch**: For model inference.
+
+## 📄 License
+This project is licensed under the MIT License.
