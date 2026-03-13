@@ -47,7 +47,7 @@ backend/.env
 backend/complaints.db
 
 # Machine Learning / Large Files
-# backend/bert_complaint_model/
+backend/bert_complaint_model/
 chatbot/bert_complaint_model/
 chatbot/results/
 chatbot/logs/
